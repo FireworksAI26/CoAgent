@@ -1,0 +1,2 @@
+import { db } from "@/lib/db";import { NextResponse } from "next/server";
+export async function POST(req:Request){const f=await req.formData();const ws=await db.workspace.findFirst();if(!ws)return NextResponse.redirect(new URL('/workflows',req.url));await db.workflow.create({data:{workspaceId:ws.id,name:String(f.get('name')),goal:String(f.get('goal')),triggerType:String(f.get('triggerType')||'manual'),status:'active'}});return NextResponse.redirect(new URL('/workflows',req.url));}
