@@ -1,48 +1,43 @@
 import Link from "next/link";
-import { Bot, ChevronDown, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, Bot, ShieldCheck, Workflow, BrainCircuit, Sparkles } from "lucide-react";
 
-const logos = ["Substack", "Klaviyo", "Retool", "NVIDIA", "Brex", "Scale", "PostHog", "Mintlify"];
+const features = [
+  { t: "Role-based AI employees", d: "Hire specialist agents for research, product, engineering, marketing, and ops." },
+  { t: "Workflow-native execution", d: "Delegate outcomes, not prompts, with reusable workflows and step ownership." },
+  { t: "Human approval guardrails", d: "Require approval before risky actions like outbound sends, spend, or deploy." },
+  { t: "Shared company memory", d: "Keep durable context for brand, product, sponsor, and customer knowledge." },
+];
 
 export default function Landing() {
   return (
-    <div className="min-h-screen text-[#464860] bg-[#efeff2] landing-grid overflow-hidden">
-      <header className="h-20 border-b border-[#d9dbe1]/80 px-8 flex items-center justify-between">
-        <nav className="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.13em]">
-          <a>Examples</a><a>Pricing</a><a className="inline-flex items-center gap-1">Features <ChevronDown size={14} /></a>
-          <a>Enterprise</a><a>Blog</a><a className="inline-flex items-center gap-1">Resources <ChevronDown size={14} /></a>
-        </nav>
-        <div className="mx-auto md:mx-0 w-10 h-10 rounded-xl bg-[#3ce2aa] grid place-items-center text-[#24304c]"><Bot size={18} /></div>
-        <div className="flex items-center gap-3">
-          <button className="hidden md:block px-7 py-3 bg-[#4b4e68] text-white skew-x-[-20deg]"><span className="inline-block skew-x-[20deg]">Contact sales</span></button>
-          <Link href="/dashboard" className="px-8 py-3 bg-[#2ee7a8] text-[#24304c] font-medium skew-x-[-20deg]"><span className="inline-block skew-x-[20deg]">Launch CoAgent</span></Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[#070b14] text-slate-100">
+      <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <header className="h-20 flex items-center justify-between border-b border-white/10">
+          <div className="flex items-center gap-3"><span className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-cyan-400 grid place-items-center"><Bot size={18}/></span><span className="font-semibold text-xl tracking-tight">CoAgent</span></div>
+          <nav className="hidden md:flex gap-8 text-sm text-slate-300"><a>Product</a><a>Workflows</a><a>Approvals</a><a>Pricing</a><a>Docs</a></nav>
+          <div className="flex items-center gap-3"><button className="px-4 py-2 rounded-xl border border-white/15 text-sm">Contact Sales</button><Link href="/dashboard" className="px-4 py-2 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 text-sm font-medium">Launch CoAgent</Link></div>
+        </header>
 
-      <main className="max-w-[1400px] mx-auto px-8 pt-20 pb-16 relative">
-        <div className="max-w-[740px]">
-          <h1 className="text-[clamp(54px,9vw,124px)] leading-[0.95] font-extrabold tracking-[-0.04em] text-[#4b4e68]">Hire Your AI Operating Team.</h1>
-          <p className="text-[38px] mt-3 text-[#4b4e68] font-semibold">Delegate outcomes, not prompts.</p>
-          <p className="mt-12 text-[44px] leading-tight max-w-xl text-[#4b4e68]/90">AI employees that plan, delegate, execute, and request human approval before risky actions.</p>
-          <div className="mt-14 flex gap-3">
-            <button className="px-9 py-4 bg-[#4b4e68] text-white skew-x-[-20deg]"><span className="inline-block skew-x-[20deg]">Contact Sales</span></button>
-            <Link href="/dashboard" className="px-9 py-4 bg-[#2ee7a8] text-[#26304a] font-semibold skew-x-[-20deg]"><span className="inline-block skew-x-[20deg]">Start now</span></Link>
+        <section className="py-20 lg:py-28 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <p className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.2em] text-cyan-300/90"><Sparkles size={14}/> AI team for founders</p>
+            <h1 className="mt-6 text-5xl lg:text-7xl font-semibold tracking-[-0.03em] leading-[0.95]">Hire an AI operating team in minutes.</h1>
+            <p className="mt-8 text-lg text-slate-300 max-w-xl">CoAgent gives founders AI employees with roles, memory, tools, workflows, run logs, and human approvals so you can delegate outcomes, not prompts.</p>
+            <div className="mt-10 flex gap-3"><Link href="/dashboard" className="px-6 py-3 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 font-medium inline-flex items-center gap-2">Start now <ArrowRight size={16}/></Link><Link href="/workflows" className="px-6 py-3 rounded-xl border border-white/15">View demo workflow</Link></div>
           </div>
-        </div>
+          <div className="surface p-5">
+            <p className="muted-label">Live Command Preview</p>
+            <div className="mt-4 rounded-xl bg-[#0f1526] border border-white/10 p-4 text-sm text-slate-300">Prepare a sponsor outreach campaign for Kova Labs.</div>
+            <div className="mt-4 space-y-3">{["Atlas researching sponsor categories","Ledger proposing sponsor tiers","Echo drafting outreach emails","Nova assembling final campaign"].map((s)=><div key={s} className="rounded-xl border border-white/10 bg-white/[0.03] p-3 flex items-center justify-between"><span>{s}</span><span className="text-xs text-cyan-300">Running</span></div>)}</div>
+          </div>
+        </section>
 
-        <div className="absolute right-[-140px] bottom-[-200px] w-[760px] h-[760px] rounded-full border border-[#c8cbd4] bg-[radial-gradient(circle_at_40%_30%,#ffffff,transparent_60%)] opacity-70" />
-        <div className="absolute right-[70px] top-[190px] w-[160px] h-[160px] rounded-full border border-[#d6d9e2]" />
-      </main>
+        <section className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 pb-20">{features.map((f)=><div key={f.t} className="surface p-5"><p className="font-medium">{f.t}</p><p className="mt-2 text-sm text-slate-300">{f.d}</p></div>)}</section>
+      </div>
 
-      <section className="border-t border-b border-[#d9dbe1] bg-white/30">
-        <div className="max-w-[1500px] mx-auto py-6 px-8">
-          <p className="text-center text-[13px] uppercase tracking-[0.28em] text-[#6e7085] mb-4">Trusted by Founder-Led Teams</p>
-          <div className="grid grid-cols-2 md:grid-cols-8 gap-5 text-center text-[42px] tracking-tight text-[#727588]">{logos.map((l)=><div key={l} className="text-lg md:text-2xl font-medium opacity-80">{l}</div>)}</div>
-        </div>
-      </section>
-
-      <footer className="bg-[#232531] text-white px-8 py-7 flex items-center justify-between">
-        <div className="flex items-center gap-3"><div className="w-12 h-12 rounded-2xl bg-[#2ee7a8] grid place-items-center text-[#19263f]"><Sparkles size={18}/></div><div><p className="text-3xl font-semibold">CoAgent</p></div></div>
-        <div className="hidden md:flex items-center gap-2 text-2xl text-white/90"><ShieldCheck/> <span>AI employee team platform</span></div>
+      <footer className="border-t border-white/10 py-8 px-6 lg:px-10 text-sm text-slate-400 flex items-center justify-between">
+        <p>© {new Date().getFullYear()} CoAgent</p>
+        <div className="flex items-center gap-5"><span className="inline-flex items-center gap-2"><Workflow size={14}/> Workflow-native</span><span className="inline-flex items-center gap-2"><ShieldCheck size={14}/> Guardrailed</span><span className="inline-flex items-center gap-2"><BrainCircuit size={14}/> Memory-first</span></div>
       </footer>
     </div>
   );
