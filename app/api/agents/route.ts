@@ -1,0 +1,2 @@
+import { db } from "@/lib/db";import { NextResponse } from "next/server";
+export async function POST(req:Request){const f=await req.formData();const ws=await db.workspace.findFirst();if(!ws) return NextResponse.redirect(new URL('/agents',req.url));await db.agent.create({data:{workspaceId:ws.id,name:String(f.get('name')),role:String(f.get('role')),description:String(f.get('description')),instructions:'Custom instructions',communicationStyle:'Direct',status:'active',permissionLevel:'standard',avatar:'A'}});return NextResponse.redirect(new URL('/agents',req.url));}
