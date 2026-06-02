@@ -1,0 +1,141 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  name      String?
+  email     String?  @unique
+  image     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Workspace {
+  id        String     @id @default(cuid())
+  name      String
+  slug      String     @unique
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  agents    Agent[]
+  workflows Workflow[]
+  runs      Run[]
+  tools     Tool[]
+  approvals Approval[]
+  memories  Memory[]
+}
+model Agent {
+  id                 String         @id @default(cuid())
+  workspaceId        String
+  name               String
+  role               String
+  description        String
+  instructions       String
+  communicationStyle String
+  status             String
+  permissionLevel    String
+  avatar             String
+  createdAt          DateTime       @default(now())
+  updatedAt          DateTime       @updatedAt
+  workspace          Workspace      @relation(fields: [workspaceId], references: [id])
+  workflowSteps      WorkflowStep[]
+  runLogs            RunLog[]
+  approvals          Approval[]
+  memories           Memory[]
+}
+model Workflow {
+  id          String         @id @default(cuid())
+  workspaceId String
+  name        String
+  goal        String
+  triggerType String
+  status      String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  workspace   Workspace      @relation(fields: [workspaceId], references: [id])
+  steps       WorkflowStep[]
+  runs        Run[]
+}
+model WorkflowStep {
+  id              String   @id @default(cuid())
+  workflowId      String
+  order           Int
+  title           String
+  description     String
+  assignedAgentId String?
+  requiredTool    String?
+  requiresApproval Boolean @default(false)
+  workflow        Workflow @relation(fields: [workflowId], references: [id])
+  assignedAgent   Agent?   @relation(fields: [assignedAgentId], references: [id])
+}
+model Run {
+  id          String    @id @default(cuid())
+  workspaceId String
+  workflowId  String?
+  title       String
+  input       String
+  output      String
+  status      String
+  riskLevel   String
+  startedAt   DateTime?
+  completedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  workflow    Workflow? @relation(fields: [workflowId], references: [id])
+  logs        RunLog[]
+  approvals   Approval[]
+}
+model RunLog {
+  id        String   @id @default(cuid())
+  runId     String
+  message   String
+  level     String
+  agentId   String?
+  createdAt DateTime @default(now())
+  run       Run      @relation(fields: [runId], references: [id])
+  agent     Agent?   @relation(fields: [agentId], references: [id])
+}
+model Tool {
+  id          String    @id @default(cuid())
+  workspaceId String
+  name        String
+  description String
+  status      String
+  riskLevel   String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+}
+model Approval {
+  id          String    @id @default(cuid())
+  workspaceId String
+  runId       String?
+  agentId     String?
+  action      String
+  reason      String
+  riskLevel   String
+  status      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  run         Run?      @relation(fields: [runId], references: [id])
+  agent       Agent?    @relation(fields: [agentId], references: [id])
+}
+model Memory {
+  id          String    @id @default(cuid())
+  workspaceId String
+  agentId     String?
+  type        String
+  title       String
+  content     String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  workspace   Workspace @relation(fields: [workspaceId], references: [id])
+  agent       Agent?    @relation(fields: [agentId], references: [id])
+}

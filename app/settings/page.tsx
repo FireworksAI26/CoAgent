@@ -1,0 +1,1 @@
+export default function(){return <div className="space-y-3"><h1 className="text-3xl">Settings</h1><div className="surface p-4">Workspace profile, team members, billing, API keys, security, notifications, data/privacy placeholders.</div></div>}
