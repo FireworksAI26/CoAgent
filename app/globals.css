@@ -2,6 +2,33 @@
 @tailwind components;
 @tailwind utilities;
 
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  background: #f7f7f4;
+  color: #18181b;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+}
+::selection { background: rgba(24, 24, 27, 0.12); color: #111113; }
+.bg-grid {
+  background-color: #f7f7f4;
+  background-image: linear-gradient(rgba(24,24,27,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(24,24,27,.055) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.surface { @apply rounded-2xl border border-zinc-200/80 bg-white/85 shadow-[0_18px_50px_rgba(24,24,27,0.06)] backdrop-blur-xl; }
+.kpi { @apply surface p-5 transition hover:-translate-y-0.5 hover:shadow-[0_22px_60px_rgba(24,24,27,0.09)]; }
+.muted-label { @apply text-xs uppercase tracking-[0.16em] text-zinc-500; }
+.landing-paper {
+  background: radial-gradient(circle at 30% -10%, rgba(255,255,255,.95), transparent 36%), #f7f7f4;
+}
+.landing-grid {
+  background-image: linear-gradient(rgba(24,24,27,.055) 1px, transparent 1px), linear-gradient(90deg, rgba(24,24,27,.055) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, black 0%, black 68%, transparent 100%);
+}
 :root { color-scheme: dark; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }

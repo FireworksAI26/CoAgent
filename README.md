@@ -19,11 +19,15 @@ npm run db:seed
 npm run dev
 ```
 
+`DATABASE_URL` is required by Prisma. For the local demo, `.env.example` points to SQLite at `file:./dev.db`.
+
 ## Database Commands
 ```bash
 npm run db:generate
 npm run db:push
 npm run db:seed
+# Equivalent Prisma-native seed command now also works:
+npx prisma db seed
 ```
 
 ## Demo Workflow: Sponsor Outreach Campaign
