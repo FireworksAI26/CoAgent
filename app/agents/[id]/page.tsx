@@ -1,0 +1,4 @@
+// @ts-nocheck
+export const dynamic = "force-dynamic";
+import { db } from "@/lib/db";
+export default async function P({params}:{params:{id:string}}){const a=await db.agent.findUnique({where:{id:params.id},include:{memories:true,workflowSteps:{include:{workflow:true}},runLogs:true}});if(!a)return <div>Not found</div>;return <div className="space-y-4"><h1 className="text-3xl">{a.name}</h1><div className="surface p-4"><p>{a.role}</p><p>{a.instructions}</p><p>Status: {a.status}</p></div><form action={`/api/agents/${a.id}`} method="post" className="surface p-4 grid md:grid-cols-2 gap-2"><input name="description" defaultValue={a.description} className="bg-muted p-2 rounded"/><input name="communicationStyle" defaultValue={a.communicationStyle} className="bg-muted p-2 rounded"/><button className="bg-accent rounded p-2">Save agent</button></form></div>}

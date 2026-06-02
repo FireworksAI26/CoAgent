@@ -1,0 +1,4 @@
+// @ts-nocheck
+export const dynamic = "force-dynamic";
+import { db } from "@/lib/db";
+export default async function(){const approvals=await db.approval.findMany({include:{agent:true,run:true}});return <div className="space-y-3"><h1 className="text-3xl">Human Approvals</h1>{approvals.map(a=><div key={a.id} className="surface p-4"><p>{a.action}</p><p className="text-sm text-slate-400">{a.reason}</p><div className="flex gap-2 mt-2"><form action={`/api/approvals/${a.id}`} method="post"><input type="hidden" name="status" value="approved"/><button className="bg-emerald-600 px-3 py-1 rounded">Approve</button></form><form action={`/api/approvals/${a.id}`} method="post"><input type="hidden" name="status" value="rejected"/><button className="bg-rose-600 px-3 py-1 rounded">Reject</button></form></div></div>)}</div>}
